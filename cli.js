@@ -13,7 +13,7 @@ function runTests(dir) {
       runTests(path);
     }
     else if (/_test.moon/.test(file)) {
-      execSync(`(cd tests && LOVE_ENV=test moon ${path})`, {stdio: 'inherit'})
+      execSync(`LOVE_ENV=test moon ${path}`, {stdio: 'inherit'})
     }
   });
 };

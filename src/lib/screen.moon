@@ -1,8 +1,10 @@
-{ warn: warn, dump: dump } = require 'src.lib.debug'
+Context           = require 'src.lib.context'
+
+{ :warn, :dump }  = require 'src.lib.debug'
 
 bool_prop = (opts, key) -> if type(opts[key]) == 'boolean' then opts[key] else true
 
-class Screen
+class Screen extends Context
   --
   -- Creates a new screen
   --
@@ -14,9 +16,12 @@ class Screen
   -- @memberof Screen
   --
   new: (opts = {}) =>
+    super!
     @blocks_draw   = bool_prop(opts, 'blocks_draw')
     @blocks_update = bool_prop(opts, 'blocks_update')
     @blocks_input  = bool_prop(opts, 'blocks_input')
+
+  get_context: => self
 
   load: =>
     warn 'Screen:load not implemented'
@@ -24,17 +29,12 @@ class Screen
   unload: =>
     warn 'Screen:unload not implemented'
 
-  draw: =>
-    warn 'Screen:draw not implemented'
-
-  update: =>
-    warn 'Screen:update not implemented'
-
   keypressed: =>
     warn 'Screen:keypressed not implemented'
 
   keyreleased: =>
     warn 'Screen:keyreleased not implemented'
+
 
 
 return Screen

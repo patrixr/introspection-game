@@ -1,6 +1,6 @@
-Drawable = require 'src.components.base.drawable'
+Component = require 'src.components.base.component'
 
-class SpriteSheet extends Drawable
+class SpriteSheet extends Component
   @from_file: (file) =>
     desc = love.filesystem.load(file)!
     SpriteSheet desc

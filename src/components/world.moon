@@ -1,6 +1,6 @@
-Drawable = require 'src.components.base.drawable'
+Component = require 'src.components.base.component'
 
-class World extends Drawable
+class World extends Component
   new: =>
     love.physics.setMeter(64)
     @world = love.physics.newWorld(0, 9.81*64, true)

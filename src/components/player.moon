@@ -8,7 +8,6 @@ class Player extends SpriteSheet
     @set_position x, y
 
   update: (dt) =>
-    @x += 1
     super(dt)
 
   draw: =>

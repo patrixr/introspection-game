@@ -1,17 +1,29 @@
 { warn: warn } = require 'src.lib.debug'
 
-class Drawable
+class Component
   new: =>
+    @ctx    = nil
     @x      = 0
     @y      = 0
     @width  = 0
     @height = 0
 
+  load: =>
+    -- to implement
+
+  unload: =>
+    -- to implement
+
   update: =>
-    -- Noop
+    -- to implement
 
   draw: =>
-    -- Noop
+    -- to implement
+
+  get_context: => @ctx
+
+  set_context: (context) =>
+    @ctx = context
 
   set_x: (x) => @x = x
 
@@ -44,4 +56,4 @@ class Drawable
      height:  @height
    }
 
-return Drawable
+return Component

@@ -1,6 +1,6 @@
-Drawable = require 'src.lib.components.base.drawable'
+Component = require 'src.lib.components.base.component'
 
-class Physical extends Drawable
+class Physical extends Component
 
   new: (body, shape, fixture) =>
     @body     = body
