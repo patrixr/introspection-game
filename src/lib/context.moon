@@ -23,14 +23,14 @@ class Context
   add: (component, category = '_') =>
     _.push @all, component
     _.push @category(category), component
-    component.set_context self
-    component.load!
+    component\set_context self
+    component\load!
 
   remove: (component, category = '_') =>
     _.remove_one @all, _.equality(component)
     _.remove_one @category(category), _.equality(component)
-    component.unload!
-    component.set_context nil
+    component\unload!
+    component\set_context nil
 
   get: (key) => @state[key]
 

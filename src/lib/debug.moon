@@ -34,6 +34,10 @@ dump = (obj, indent = 0) ->
 warn = (...) ->
   print colored('WARN'), ... unless env != 'development'
 
+panic = (...) ->
+  print colored('PANIC'), ...
+  error(...)
+
 draw_fps = ->
   love.graphics.setColor {255,255,255}
   love.graphics.print("FPS : " .. tostring(love.timer.getFPS()), 10, 10)
@@ -41,5 +45,6 @@ draw_fps = ->
 return {
   dump:       dump,
   warn:       warn,
-  draw_fps:   draw_fps
+  draw_fps:   draw_fps,
+  panic:      panic
 }

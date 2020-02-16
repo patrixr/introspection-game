@@ -1,12 +1,14 @@
-{ warn: warn } = require 'src.lib.debug'
+_         = require 'src.lib.utils'
+{ :warn } = require 'src.lib.debug'
 
 class Component
-  new: =>
-    @ctx    = nil
-    @x      = 0
-    @y      = 0
-    @width  = 0
-    @height = 0
+  new: (opts = {}) =>
+    @opts   = opts
+    @ctx    = _.get(opts, 'context', nil)
+    @x      = _.get(opts, 'x', 0)
+    @y      = _.get(opts, 'y', 0)
+    @width  = _.get(opts, 'width', 0)
+    @height = _.get(opts, 'height', 0)
 
   load: =>
     -- to implement
@@ -50,10 +52,10 @@ class Component
   get_height: => @height
 
   get_geometry: => {
-     x:       @x,
-     y:       @y,
-     width:   @width,
-     height:  @height
-   }
+    x:       @get_x!,
+    y:       @get_y!,
+    width:   @get_width!,
+    height:  @get_height!
+  }
 
 return Component

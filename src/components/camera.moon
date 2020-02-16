@@ -1,9 +1,10 @@
-{ screen: screen } = require 'config'
 
-class Camera
+LogicalComponent  = require 'src.components.base.logical_component'
+{ :screen }       = require 'config'
+
+class Camera extends LogicalComponent
   new: =>
-    @x          = 0
-    @y          = 0
+    super!
     @scale_x    = 1
     @scale_y    = 1
     @to_follow  = nil

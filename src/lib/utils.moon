@@ -13,6 +13,13 @@ prepend = (array, item) ->
   table.insert(array, 1, item)
 
 --
+-- Returns a property or a default value
+--
+get = (obj, prop, default = nil) ->
+  return default if obj == nil or obj[prop] == nil
+  obj[prop]
+
+--
 -- Calls a method on each item of an array
 --
 -- breaks if STOP is returned
@@ -129,6 +136,16 @@ equality = (obj) -> (it) -> it == obj
 --
 noop = () ->
 
+--
+--
+--
+cache = (func) ->
+  _cache = {}
+  (param) ->
+    _cache[param] = func(param) unless _cache[param]
+    _cache[param]
+
+
 return {
   stop:           STOP
   each:           each
@@ -143,5 +160,7 @@ return {
   remove:         remove
   remove_one:     remove_one
   equality:       equality
-  noop:           noop
+  noop:           noop,
+  get:            get,
+  cache:          cache
 }
