@@ -1,14 +1,16 @@
-{ :dump } = require 'src.lib.debug'
-_         = require 'src.lib.utils'
+EventEmitter  = require 'src.lib.event_emitter'
+{ :dump }     = require 'src.lib.debug'
+_             = require 'src.lib.utils'
 
 --
 -- A container class to store the game's entities
 --
-class Context
+class Context extends EventEmitter
   new: =>
     @clear!
 
   clear: =>
+    super!
     _.each @all, (o) -> o.unload!
     @categories = {}
     @all        = {}

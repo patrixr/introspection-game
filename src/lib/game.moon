@@ -6,28 +6,17 @@ class Game
     @config = config
 
   run: =>
-    {
-      width:      width,
-      height:     height,
-      vsync:      vsync,
-      background: background
-    } = @config.screen
+    { :width, :height, :vsync, :background, :fullscreen } = @config.screen
 
     debug_mode = @config.debug_mode
 
     --
     -- Setup love2d
     --
-    love.conf = (t) ->
-      t.console = true
 
     love.load = (arg) ->
+      love.window.setMode width, height, fullscreen, vsync
       love.graphics.setBackgroundColor background or {0, 0, 0}
-
-      love.window.setMode width, height, {
-        resizable: false
-        vsync: @config.screen.vsync
-      }
 
       startup_screen = require(@config.startup.screen)
       ScreenManager\push startup_screen!
@@ -38,6 +27,24 @@ class Game
 
     love.keyreleased = (key) ->
       ScreenManager\keyreleased key
+
+    love.touchpressed = (id, x, y, dx, dy, pressure) ->
+      ScreenManager\touchpressed id, x, y, dx, dy, pressure
+
+    love.touchreleased = (id, x, y, dx, dy, pressure) ->
+      ScreenManager\touchreleased id, x, y, dx, dy, pressure
+
+    love.touchmoved = (id, x, y, dx, dy, pressure) ->
+      ScreenManager\touchmoved id, x, y, dx, dy, pressure
+
+    love.mousepressed = (x, y, button, istouch, presses) ->
+      ScreenManager\mousepressed x, y, button, istouch, presses
+
+    love.mousereleased = (x, y, button, istouch, presses) ->
+      ScreenManager\mousereleased x, y, button, istouch, presses
+
+    love.mousemoved = (x, y, dx, dy, istouch) ->
+      ScreenManager\mousemoved x, y, dx, dy, istouch
 
     love.draw = ->
       ScreenManager\draw!

@@ -6,6 +6,18 @@ debug     = require 'src.lib.debug'
 
 describe 'Utils', ->
 
+  describe 'cache', ->
+    it 'returns the same object based on the argument', ->
+      func = _.cache (arg) -> {}
+
+      arg1 = {}
+      arg2 = {}
+
+      expect(func(arg1) == func(arg1)).to.equal true
+      expect(func(arg1) == func(arg2)).to.equal false
+      expect(func(arg2) == func(arg2)).to.equal true
+
+
   describe 'filter', ->
 
     it 'filters out elements out of the array', ->

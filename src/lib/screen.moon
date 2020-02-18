@@ -29,12 +29,32 @@ class Screen extends Context
   unload: =>
     warn 'Screen:unload not implemented'
 
-  keypressed: =>
-    warn 'Screen:keypressed not implemented'
+  update: (dt) => super(dt)
 
-  keyreleased: =>
-    warn 'Screen:keyreleased not implemented'
+  draw: => super!
 
+  keypressed: (key, scancode, isrepeat) =>
+    @fire 'keypressed', key, scancode, isrepeat
 
+  keyreleased: (key, scancode) =>
+    @fire 'keyreleased', key, scancode
+
+  touchpressed: (id, x, y, dx, dy, pressure) =>
+    @fire 'touchpressed', id, x, y, dx, dy, pressure
+
+  touchreleased: (id, x, y, dx, dy, pressure) =>
+    @fire 'touchreleased', id, x, y, dx, dy, pressure
+
+  touchmoved: (id, x, y, dx, dy, pressure) =>
+    @fire 'touchmoved', id, x, y, dx, dy, pressure
+
+  mousepressed: (x, y, button, istouch, presses) =>
+    @fire 'mousepressed', x, y, button, istouch, presses
+
+  mousereleased: (x, y, button, istouch, presses) =>
+    @fire 'mousereleased', x, y, button, istouch, presses
+
+  mousemoved: (x, y, dx, dy, istouch) =>
+    @fire 'mousemoved', x, y, dx, dy, istouch
 
 return Screen

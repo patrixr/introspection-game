@@ -9,7 +9,7 @@ class PlaygroundLevel extends Level
   populate: (context) =>
     super(context)
 
-    player = Player({ x: 100, y: 100 })
+    player = Player({ x: 100, y: 1.5 * screen.height })
     context\add player, 'actors'
     context\set 'player', player
 

@@ -8,10 +8,12 @@ class ScreenManager
   -- Helpers
   -------------------
 
-  filter_screens = (screens, block_property) ->
-    _.reduce screens, {}, (res, screen, i) ->
+  each_screen = (screens, block_property, cb) ->
+    to_trigger = _.reduce screens, {}, (res, screen, i) ->
       _.prepend(res, screen)
-      return if screen[block_property] then _.stop else res
+      return _.stop if screen[block_property]
+      res
+    _.each to_trigger, cb
 
   -------------------
   -- API
@@ -43,27 +45,41 @@ class ScreenManager
   --
   -- Calls the draw method on the screen stack
   --
-  @draw: (...) =>
-    to_draw = filter_screens @screens, 'blocks_draw'
-    for i = 1, #to_draw
-      to_draw[i]\draw(...)
+  @draw: () =>
+    each_screen @screens, 'blocks_draw', (s) -> s\draw!
 
   --
   -- Calls the draw method on the screen stack
   --
-  @update: (...) =>
-    to_update = filter_screens @screens, 'blocks_update'
-    for i = 1, #to_update
-      to_update[i]\update(...)
+  @update: (dt) =>
+    each_screen @screens, 'blocks_update', (s) -> s\update(dt)
 
-  @keypressed: (...) =>
-    to_notify = filter_screens @screens, 'blocks_input'
-    for i = 1, #to_notify
-      to_notify[i]\keypressed(...)
+  --
+  -- Inputs
+  --
 
-  @keyreleased: (...) =>
-    to_notify = filter_screens @screens, 'blocks_input'
-    for i = 1, #to_notify
-      to_notify[i]\keyreleased(...)
+  @keypressed: (key, scancode, isrepeat) =>
+    each_screen @screens, 'blocks_input', (s) -> s\keypressed(key, scancode, isrepeat)
+
+  @keyreleased: (key, scancode) =>
+    each_screen @screens, 'blocks_input', (s) -> s\keyreleased(key, scancode)
+
+  @touchpressed: (id, x, y, dx, dy, pressure) =>
+    each_screen @screens, 'blocks_input', (s) -> s\touchpressed(key, id, x, y, dx, dy, pressure)
+
+  @touchreleased: (id, x, y, dx, dy, pressure) =>
+    each_screen @screens, 'blocks_input', (s) -> s\touchreleased(key, id, x, y, dx, dy, pressure)
+
+  @touchmoved: (id, x, y, dx, dy, pressure) =>
+    each_screen @screens, 'blocks_input', (s) -> s\touchmoved(key, id, x, y, dx, dy, pressure)
+
+  @mousepressed: (x, y, button, istouch, presses) =>
+    each_screen @screens, 'blocks_input', (s) -> s\mousepressed(x, y, button, istouch, presses)
+
+  @mousereleased: (x, y, button, istouch, presses) =>
+    each_screen @screens, 'blocks_input', (s) -> s\mousereleased(x, y, button, istouch, presses)
+
+  @mousemoved: (x, y, dx, dy, istouch) =>
+    each_screen @screens, 'blocks_input', (s) -> s\mousemoved(x, y, dx, dy, istouch)
 
 return ScreenManager

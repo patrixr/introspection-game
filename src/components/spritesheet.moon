@@ -28,8 +28,6 @@ return _.cache (base_klass = Component) ->
       @visible            = true
       @flip_x             = 1
       @rotation           = @rotation or 0
-      @relative_origin_x  = @relative_origin_x or 0
-      @relative_origin_y  = @relative_origin_y or 0
 
 
     get_state_descriptor: (name) => @descriptor.states[name]
@@ -88,15 +86,17 @@ return _.cache (base_klass = Component) ->
 
       quad = @state.quads[@current_frame]
 
+      offset_x = if @flip_x == -1 then @state.frame_w else 0
+
       love.graphics.draw(@texture,
         quad,
-        @get_x!,
+        @get_x! + offset_x,
         @get_y!,
         @rotation,
         @flip_x * scale_x,
         scale_y,
-        @relative_origin_x * @state.frame_w,
-        @relative_origin_x * @state.frame_h,
+        0,
+        0,
         0,0
       )
 
@@ -112,6 +112,13 @@ return _.cache (base_klass = Component) ->
       @current_frame  = 0
       @state          = @get_state_descriptor(name)
       @state_name     = name
+
+   --
+    -- @brief if set to true, the sprite will be flipped horizontallyu
+    --
+    set_horizontal_flip: (enabled) =>
+      @flip_x = if enabled then -1 else 1
+
 
     --
     -- @brief Gets the state the animation is currently in

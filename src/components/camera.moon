@@ -33,6 +33,9 @@ class Camera extends LogicalComponent
   follow: (entity) =>
     @to_follow = entity
 
+  real_coordinates: (x, y) =>
+    @to_follow\get_x! - screen.width / 2 + x, @to_follow\get_y! - screen.height / 2 + y
+
   update: =>
     if @to_follow
       @set_position(

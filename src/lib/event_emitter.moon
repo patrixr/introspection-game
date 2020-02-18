@@ -1,7 +1,7 @@
 debug = require 'src.lib.debug'
 _     = require 'src.lib.utils'
 
-class Mediator
+class EventEmitter
   new: =>
     @clear!
 
@@ -14,8 +14,10 @@ class Mediator
     @listeners[event][id] = callback
     return () -> @listeners[event][id] = nil
 
-  fire: (event, args) =>
-    _.each @listeners[event], (fn) -> fn(args)
+  fire: (event, ...) =>
+    listeners = @listeners[event] or {}
+    for key, fn in pairs listeners
+      fn(...)
 
-return Mediator!
+return EventEmitter
 

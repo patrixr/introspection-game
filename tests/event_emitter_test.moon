@@ -1,10 +1,12 @@
-lust      = require 'vendor.lust'
-mediator  = require 'src.lib.mediator'
-debug     = require 'src.lib.debug'
+lust          = require 'vendor.lust'
+EventEmitter  = require 'src.lib.event_emitter'
+debug         = require 'src.lib.debug'
 
 describe, it, expect = lust.describe, lust.it, lust.expect
 
-describe 'Mediator', ->
+describe 'EventEmitter', ->
+  mediator = EventEmitter!
+
   lust.before () ->
     mediator\clear!
 
