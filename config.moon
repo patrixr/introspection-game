@@ -1,4 +1,4 @@
-{ env: env } = require 'src.lib.env'
+{ :is_prod, :is_dev } = require 'src.lib.env'
 
 return {
   app: {
@@ -12,7 +12,7 @@ return {
     width:        1280,
     height:       720,
     vsync:        true,
-    fullscreen:   false
+    fullscreen:   is_prod
   },
   input: {
     keyboard: true,
@@ -24,7 +24,7 @@ return {
     parameters: {}
   },
   debug_mode: {
-    active:   env == 'development',
+    active:   is_dev
     show_fps: true
   }
 }

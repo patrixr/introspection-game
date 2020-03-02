@@ -36,8 +36,10 @@ class Context extends EventEmitter
 
   get: (key) => @state[key]
 
-  set: (key, value) =>
+  set: (key, value, opts = {}) =>
     @state[key] = value
+    @add(value)           if opts.add == true
+    @add(value, opts.add) if type(opts.add) == 'string'
     value
 
   each: (cb) =>

@@ -7,11 +7,12 @@ class Boundaries extends Component
   load: () =>
     super!
     { :width, :height } = @opts
+
     @walls = {
-      Block({ x: 0, y: 0, width: 1, height: height, context: @ctx }),
-      Block({ x: width, y: 0, width: 1, height: height, context: @ctx }),
-      Block({ x: 0, y: 0, width: width, height: 1, context: @ctx }),
-      Block({ x: 0, y: height, width: width, height: 1, context: @ctx })
+      Block({ x: 0,     y: 0,       width: 1,     height: height, context: @ctx }),
+      Block({ x: width, y: 0,       width: 1,     height: height, context: @ctx }),
+      Block({ x: 0,     y: 0,       width: width, height: 1,      context: @ctx }),
+      Block({ x: 0,     y: height,  width: width, height: 1,      context: @ctx })
     }
 
     _.each @walls, (w) -> w\load!

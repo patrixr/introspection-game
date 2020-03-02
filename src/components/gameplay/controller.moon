@@ -22,15 +22,15 @@ class Controller extends LogicalComponent
     _.each @listeners, (el) -> el!
 
   on_press: (x, y, button, istouch, presses) =>
-    @pressed = true
-    @move_towards(x)
+    -- @pressed = true
+    -- @move_towards(x)
 
   on_release: (x, y, button, istouch, presses) =>
     @pressed = false
-    @player\set_motion Vec2d!
+    -- @player\set_motion Vec2d!
 
   on_move: (x, y, dx, dy, istouch) =>
-    @move_towards(x) if @pressed
+    -- @move_towards(x) if @pressed
 
   move_towards: (x) =>
-    @player\set_motion Vec2d(x - @player\get_x!, 0)\normalized!
+    -- @player\set_motion Vec2d(x - @player\get_x!, 0)\normalized!

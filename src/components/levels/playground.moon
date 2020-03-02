@@ -1,5 +1,5 @@
 { :screen }   = require 'config'
-Level         = require 'src.components.base.level'
+Level         = require 'src.components.levels.base'
 Player        = require 'src.components.player'
 
 class PlaygroundLevel extends Level
@@ -10,8 +10,7 @@ class PlaygroundLevel extends Level
     super(context)
 
     player = Player({ x: 100, y: 1.5 * screen.height })
-    context\add player, 'actors'
-    context\set 'player', player
+    context\set 'player', player, { add: 'actors' }
 
 
 return PlaygroundLevel

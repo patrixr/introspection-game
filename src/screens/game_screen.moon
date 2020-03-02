@@ -1,4 +1,5 @@
 _                 = require 'src.lib.utils'
+{ :panic }        = require 'src.lib.debug'
 Screen            = require 'src.lib.screen'
 Controller        = require 'src.components.gameplay.controller'
 Camera            = require 'src.components.camera'
@@ -10,14 +11,25 @@ class GameScreen extends Screen
     @level = level_klass!
 
   load: =>
-    @level\populate(self)
+    --
+    -- Populate entities
+    --
+    @level\populate(@)
+    @player = @get('player')
 
-    @player   = @get('player')
+    panic('[GameScreen] Level did not initialize a player') unless @player
 
-    @camera   = Camera!
+    --
+    -- Viewport setup
+    --
+    @camera = Camera!
     @camera\follow @player
     @set 'camera', @camera
+    @add @camera
 
+    --
+    -- Input control
+    --
     @add Controller!
 
   unload: =>
@@ -25,12 +37,11 @@ class GameScreen extends Screen
     @clear!
 
   get_world: =>
-    @get_context!\get('world')
+    @get_context!\get 'world'
 
   update: (dt) =>
     super(dt)
     @camera\update(dt)
-    @get_world!\update(dt)
 
   draw: =>
     @camera\apply () -> super!

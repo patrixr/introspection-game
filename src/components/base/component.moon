@@ -1,5 +1,6 @@
-_         = require 'src.lib.utils'
-{ :warn } = require 'src.lib.debug'
+_                 = require 'src.lib.utils'
+{ :warn, :dump }  = require 'src.lib.debug'
+{ :debug_mode }   = require 'config'
 
 class Component
   new: (opts = {}) =>
@@ -9,23 +10,37 @@ class Component
     @y      = _.get(opts, 'y', 0)
     @width  = _.get(opts, 'width', 0)
     @height = _.get(opts, 'height', 0)
+    @traits = {}
+
+  use: (trait) =>
+    name = trait\get_name!
+
+    error("[Component] Traits must be named") unless name
+
+    @[name] = trait
+    @traits[trait.__class] = trait
+
+  has: (trait_klass) => @traits[trait_klass] != nil
 
   load: =>
-    -- to implement
+    _.each @traits, (t) -> t\load(@)
 
   unload: =>
-    -- to implement
+    _.each @traits, (t) -> t\unload(@)
 
-  update: =>
-    -- to implement
+  update: (dt) =>
+    _.each @traits, (t) -> t\update(dt, @)
 
   draw: =>
-    -- to implement
+    if debug_mode.active
+      r, g, b, a = love.graphics.getColor!
+      love.graphics.setColor(0, 255, 0, 1)
+      love.graphics.rectangle('line', @get_x!, @get_y!, @get_width!, @get_height!)
+      love.graphics.setColor(r, g, b, a)
 
   get_context: => @ctx
 
-  set_context: (context) =>
-    @ctx = context
+  set_context: (context) => @ctx = context
 
   set_x: (x) => @x = x
 

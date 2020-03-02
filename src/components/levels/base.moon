@@ -10,10 +10,6 @@ class Level
     @height = height
 
   populate: (context) =>
-    love.physics.setMeter(64)
-    world = love.physics.newWorld(0, 9.81*64, true)
-
-    context\set('world', world)
     context\add Boundaries({ width: @width, height: @height }), 'terrain'
 
 return Level
