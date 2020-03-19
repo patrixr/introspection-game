@@ -193,6 +193,35 @@ class Vec2d
   __tostring: =>
     ("vec2d<%f, %f>")\format self[1], self[2]
 
+
+class Segment
+  new: (@x1, @y1, @x2, @y2) =>
+
+  intersection: (seg) =>
+    p0_x = @x1
+    p1_x = @x2
+    p2_x = seg.x1
+    p3_x = seg.x2
+    p0_y = @y1
+    p1_y = @y2
+    p2_y = seg.y1
+    p3_y = seg.y2
+
+    s1_x = p1_x - p0_x
+    s1_y = p1_y - p0_y
+    s2_x = p3_x - p2_x
+    s2_y = p3_y - p2_y
+
+    s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y)
+    t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y)
+
+    return nil unless s >= 0 and s <= 1 and t >= 0 and t <= 1
+
+    Vec2d(p0_x + (t * s1_x), p0_y + (t * s1_y))
+
+  middle: =>
+    Vec2d((@x2 + @x1) / 2, (@y2 + @y1) / 2)
+
 class Box
   self.from_pt = (x1, y1, x2, y2) ->
     Box x1, y1, x2 - x1, y2 - y1
@@ -509,8 +538,11 @@ class VectorSelector extends Selector
   :Box
   :UniformGrid
   :SetList
+  :Segment
 
   :Selector
   :BoxSelector
   :VectorSelector
+
+  Point: Vec2d
 }

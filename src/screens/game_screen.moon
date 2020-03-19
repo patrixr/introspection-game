@@ -1,7 +1,6 @@
 _                 = require 'src.lib.utils'
 { :panic }        = require 'src.lib.debug'
 Screen            = require 'src.lib.screen'
-Controller        = require 'src.components.gameplay.controller'
 Camera            = require 'src.components.camera'
 PlaygroundLevel   = require 'src.components.levels.playground'
 
@@ -11,6 +10,7 @@ class GameScreen extends Screen
     @level = level_klass!
 
   load: =>
+
     --
     -- Populate entities
     --
@@ -26,11 +26,6 @@ class GameScreen extends Screen
     @camera\follow @player
     @set 'camera', @camera
     @add @camera
-
-    --
-    -- Input control
-    --
-    @add Controller!
 
   unload: =>
     @get_world!\destroy!
