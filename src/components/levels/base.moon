@@ -11,5 +11,8 @@ class Level
 
   populate: (context) =>
     context\add Boundaries({ width: @width, height: @height }), 'terrain'
+    context\set 'level', @
+    context\set 'level.width', @width
+    context\set 'level.height', @height
 
 return Level

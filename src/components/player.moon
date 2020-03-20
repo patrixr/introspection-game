@@ -14,7 +14,7 @@ player_sheet = require 'src.assets.sprites.player'
 --
 --
 --
-class Player extends Compose(SpriteSheet, { Mass(20), Controller, Velocity, Gravity, Grounded })
+class Player extends Compose(SpriteSheet, { Mass(20), Velocity, Gravity, Grounded, Controller })
   DIRECTIONS = {
     LEFT:   1,
     RIGHT:  2
